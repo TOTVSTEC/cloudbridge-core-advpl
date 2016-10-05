@@ -1,1 +1,0 @@
-# cloudbridge-app-base
