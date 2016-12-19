@@ -1,0 +1,11 @@
+{
+	"node": true,
+	"esversion": 6,
+
+	"eqeqeq": false,
+	"eqnull": true,
+
+	"globals": {
+		"__basedir": true
+	}
+}
