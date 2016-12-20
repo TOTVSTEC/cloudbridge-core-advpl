@@ -1,18 +1,27 @@
-var task = module.exports,
-	path = require('path'),
+var path = require('path'),
 	Q = null,
 	shelljs = null;
 
-task.run = function run(cli, targetPath) {
-	shelljs = cli.require('shelljs');
-	Q = cli.require('q');
+class RemoveTask {
 
-	/*
-	var //src = path.join(targetPath, 'src', 'android'),
-		target = path.join(targetPath, 'build', 'android');
+	constructor(cli, targetPath, projectData) {
+		this.cli = cli;
+		this.projectDir = targetPath;
+		this.projectData = projectData;
 
-	//shelljs.rm('-rf', src);
-	shelljs.rm('-rf', target);
-	*/
-	return Q();
-};
+		shelljs = cli.require('shelljs');
+		Q = cli.require('q');
+	}
+
+	run() {
+		var src = path.join(this.projectDir, 'src', 'apo', 'tttp110.rpo'),
+			target = path.join(this.projectDir, 'build', 'advpl');
+
+		shelljs.rm('-rf', src);
+		shelljs.rm('-rf', target);
+
+		return Q();
+	}
+}
+
+module.exports = RemoveTask;

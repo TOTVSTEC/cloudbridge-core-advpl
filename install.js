@@ -1,8 +1,6 @@
 var path = require('path'),
-	Q = null,
 	shelljs = null,
-	utils = null,
-	prompt = null;
+	RestoreTask = require('./restore');
 
 class InstallTask {
 
@@ -11,17 +9,15 @@ class InstallTask {
 		this.projectDir = targetPath;
 		this.projectData = projectData;
 
-		Q = cli.require('q');
 		shelljs = cli.require('shelljs');
 	}
 
 	run() {
 		shelljs.cp('-Rf', path.join(__dirname, 'src'), this.projectDir);
-		shelljs.cp('-Rf', path.join(__dirname, 'build'), this.projectDir);
 
-		shelljs.cd(this.projectDir);
+		var restore = new RestoreTask(this.cli, this.projectDir, this.projectData);
 
-		return Q();
+		return restore.run();
 	}
 
 }

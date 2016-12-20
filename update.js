@@ -1,18 +1,22 @@
-var task = module.exports,
-	Q = null;
+var RemoveTask = require('./remove'),
+	InstallTask = require('./install');
 
-task.run = function run(cli, targetPath) {
-	Q = cli.require('q');
+class UpdateTask {
 
-	return Q()/*
-		.then(function() {
-			var remove = require('./remove');
+	constructor(cli, targetPath, projectData) {
+		this.cli = cli;
+		this.projectDir = targetPath;
+		this.projectData = projectData;
+	}
 
-			return remove.run(cli, targetPath);
-		})
-		.then(function() {
-			var install = require('./install');
+	run() {
+		var remove = new RemoveTask(this.cli, this.projectDir, this.projectData),
+			install = new InstallTask(this.cli, this.projectDir, this.projectData);
 
-			return install.run(cli, targetPath);
-		})*/;
-};
+		return remove.run()
+			.then(function() {
+				return install.run();
+			});
+	}
+}
+
