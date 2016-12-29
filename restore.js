@@ -2,6 +2,12 @@ var path = require('path'),
 	Q = null,
 	shelljs = null;
 
+module.exports.run = function run(cli, targetPath, projectData) {
+	var task = new RestoreTask(cli, targetPath, projectData);
+
+	return task.run();
+};
+
 class RestoreTask {
 
 	constructor(cli, targetPath, projectData) {
@@ -20,5 +26,3 @@ class RestoreTask {
 	}
 
 }
-
-module.exports = RestoreTask;

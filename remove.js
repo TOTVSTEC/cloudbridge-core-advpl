@@ -2,6 +2,12 @@ var path = require('path'),
 	Q = null,
 	shelljs = null;
 
+module.exports.run = function run(cli, targetPath, projectData) {
+	var task = new RemoveTask(cli, targetPath, projectData);
+
+	return task.run();
+};
+
 class RemoveTask {
 
 	constructor(cli, targetPath, projectData) {
@@ -23,5 +29,3 @@ class RemoveTask {
 		return Q();
 	}
 }
-
-module.exports = RemoveTask;

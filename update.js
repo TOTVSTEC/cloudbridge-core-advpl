@@ -1,6 +1,12 @@
 var RemoveTask = require('./remove'),
 	InstallTask = require('./install');
 
+module.exports.run = function run(cli, targetPath, projectData) {
+	var task = new UpdateTask(cli, targetPath, projectData);
+
+	return task.run();
+};
+
 class UpdateTask {
 
 	constructor(cli, targetPath, projectData) {
@@ -10,6 +16,13 @@ class UpdateTask {
 	}
 
 	run() {
+		return RemoveTask.run(this.cli, this.projectDir, this.projectData)
+			.then(function() {
+				return InstallTask.run(this.cli, this.projectDir, this.projectData);
+			});
+
+		/*
+		//TODO: Converter tudo para classes de tasks
 		var remove = new RemoveTask(this.cli, this.projectDir, this.projectData),
 			install = new InstallTask(this.cli, this.projectDir, this.projectData);
 
@@ -17,6 +30,7 @@ class UpdateTask {
 			.then(function() {
 				return install.run();
 			});
+		*/
 	}
 }
 
