@@ -16,9 +16,11 @@ class UpdateTask {
 	}
 
 	run() {
+		var _this = this;
+
 		return RemoveTask.run(this.cli, this.projectDir, this.projectData)
 			.then(function() {
-				return InstallTask.run(this.cli, this.projectDir, this.projectData);
+				return InstallTask.run(_this.cli, _this.projectDir, _this.projectData);
 			});
 
 		/*
